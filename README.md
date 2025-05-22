@@ -26,6 +26,10 @@ pip install -r requirements.txt
 ### 2. Train the Model [TODO: add in all models]
 ```bash
 python DistilBERT_genre_training.py
+
+# optional for inference
+python DistilBERT_genre_inference.py --text "A man must fight through zombies to protect his family."
+
 ```
 
 ### 3. Start the Backend and Frontend
