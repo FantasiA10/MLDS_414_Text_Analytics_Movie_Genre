@@ -1,9 +1,13 @@
 # genre_inference.py
 import torch
 import pickle
-from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
 import pandas as pd
 import argparse
+
+from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
+
+from scripts.summarize import summarize_text
+from scripts.clean import clean_text
 
 # Load saved model and tokenizer
 model_path = './bert_genre_model'
@@ -15,6 +19,8 @@ with open('./bert_genre_model/label_encoder.pkl', 'rb') as f:
     le = pickle.load(f)
 
 def predict_genre(texts):
+    texts = clean_text(texts)
+    texts = summarize_text(texts)
     inputs = tokenizer(texts, return_tensors="pt", truncation=True, padding=True)
     with torch.no_grad():
         outputs = model(**inputs)

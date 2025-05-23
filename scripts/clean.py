@@ -5,10 +5,12 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
 from nltk.tokenize import word_tokenize
 
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger_eng')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
+
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 
@@ -30,7 +32,7 @@ def clean_text(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
 
     tokens = word_tokenize(text)
-    tokens = [t for t in tokens if t not in stop_words and len(t) > 2]
+    # tokens = [t for t in tokens if t not in stop_words and len(t) > 2]
 
     tagged = pos_tag(tokens)
     tokens = [lemmatizer.lemmatize(word, get_wordnet_pos(pos)) for word, pos in tagged]

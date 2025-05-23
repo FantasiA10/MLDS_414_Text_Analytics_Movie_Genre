@@ -1,25 +1,26 @@
+import os
+import json
+import pickle
+
 from datasets import Dataset
 from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification, TrainingArguments, Trainer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 import pandas as pd
-import torch
-import numpy as np
-import os
-import json
-import nltk
-import pickle
-from scripts.summarize import summarize_text
 
-nltk.download('punkt_tab')
+from scripts.summarize import summarize_text
+from scripts.clean_bert import clean_for_bert
 
 # Load dataset
 df = pd.read_csv('./datasets/imdb/IMDB_four_genre_larger_plot_description.csv')
 df = df[['description', 'genre']].dropna()
 print("Dataset Loaded")
 
-df['summary'] = df['description'].apply(lambda x: summarize_text(x, num_sentences=5))
+df['clean_description'] = df['description'].astype(str).apply(clean_for_bert)
+print("Data Cleaned")
+
+df['summary'] = df['clean_description'].apply(lambda x: summarize_text(x, num_sentences=5))
 print("Summary Created")
 
 # Encode target labels

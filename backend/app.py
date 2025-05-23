@@ -10,7 +10,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
 
-from scripts.clean import clean_text
+from scripts.clean_bert import clean_for_bert
 from scripts.summarize import summarize_text
 
 class MovieInput(BaseModel):
@@ -33,7 +33,7 @@ def predict_genre(input: MovieInput):
     if not input.description.strip():
         raise HTTPException(status_code=400, detail="Empty description.")
 
-    cleaned = clean_text(input.description)
+    cleaned = clean_for_bert(input.description)
     summary = summarize_text(cleaned)
 
     inputs = tokenizer(summary, return_tensors="pt", truncation=True, padding=True)
