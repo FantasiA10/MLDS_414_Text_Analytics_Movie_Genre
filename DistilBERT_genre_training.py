@@ -8,11 +8,19 @@ import torch
 import numpy as np
 import os
 import json
+import nltk
 import pickle
+from scripts.summarize import summarize_text
+
+nltk.download('punkt_tab')
 
 # Load dataset
 df = pd.read_csv('./datasets/imdb/IMDB_four_genre_larger_plot_description.csv')
 df = df[['description', 'genre']].dropna()
+print("Dataset Loaded")
+
+df['summary'] = df['description'].apply(lambda x: summarize_text(x, num_sentences=5))
+print("Summary Created")
 
 # Encode target labels
 le = LabelEncoder()
@@ -22,14 +30,14 @@ df['label'] = le.fit_transform(df['genre'])  # Save this encoder if needed for i
 train_df, val_df = train_test_split(df, test_size=0.2, stratify=df['label'], random_state=42)
 
 # Convert to HuggingFace Datasets
-train_ds = Dataset.from_pandas(train_df[['description', 'label']])
-val_ds = Dataset.from_pandas(val_df[['description', 'label']])
+train_ds = Dataset.from_pandas(train_df[['summary', 'label']])
+val_ds = Dataset.from_pandas(val_df[['summary', 'label']])
 
 # Load tokenizer
 tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
 
 def tokenize(batch):
-    return tokenizer(batch['description'], truncation=True, padding=True)
+    return tokenizer(batch['summary'], truncation=True, padding=True)
 
 train_ds = train_ds.map(tokenize, batched=True)
 val_ds = val_ds.map(tokenize, batched=True)
@@ -40,7 +48,7 @@ model = DistilBertForSequenceClassification.from_pretrained('distilbert-base-unc
 # Training arguments
 training_args = TrainingArguments(
     output_dir='./results',
-    num_train_epochs=3,
+    num_train_epochs=5,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
     logging_dir='./logs',

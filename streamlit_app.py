@@ -18,6 +18,8 @@ if st.button("Predict Genre"):
                     json={"description": description}
                 )
                 result = response.json()
+                st.markdown("#### ✂️ Cleaned and Summarized Text:")
+                st.code(result['summary'], language="markdown")
                 st.success(f"Predicted Genre: **{result['genre'].capitalize()}**")
             except Exception as e:
                 st.error(f"Error: {str(e)}")
