@@ -1,0 +1,16 @@
+numpy 
+scipy 
+scikit-learn 
+pandas 
+matplotlib 
+seaborn 
+wordcloud
+
+tensorflow==2.14.0
+
+nltk
+datasets
+
+streamlit 
+fastapi 
+uvicorn
