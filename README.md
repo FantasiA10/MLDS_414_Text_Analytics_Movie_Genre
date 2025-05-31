@@ -52,7 +52,7 @@ FINAL_PROJECT/
 ├── train_all_models.py         # End-to-end training pipeline
 ├── requirements.txt
 ├── README.md
-└── Project Discussion.html     # Slides or written presentation
+└── Text Analytics Movie Genre Classification.pdf    # Slides or written presentation
 ```
 
 
