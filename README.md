@@ -1,54 +1,114 @@
-# MLDS_414_Text_Analytics_Movie_Genre
+# Multimodal Movie Genre Classification
 
-[TODO: short description]
+**Northwestern University — Text Analytics**  
 
-## Project Structure
+**Final Project — Spring 2025**
 
-[TODO]
+**Team Member: Jerry Zhu, Mason Ma, Yishi Wang, Yunkai Jin, Seung Jae Lee**
 
-## Project Goals
+## Overview
 
-[TODO]
+This project explores genre classification of movies using two modalities: **plot summaries** (text) and **poster images** (vision). The primary focus is on building and comparing multiple NLP models for genre prediction, while the optional bonus challenge applies transfer learning to classify genres using movie posters.
 
-## Models
+We target four genres: **Action**, **Comedy**, **Horror**, and **Romance**.
 
-[TODO]
+## Project Objectives
 
-## Run the Project
+- Clean and analyze movie summaries
+- Build a summarization tool
+- Train multiple genre classifiers using text:
+  - Naive Bayes
+  - Logistic Regression
+  - Random Forest
+  - LSTM (TensorFlow)
+- Evaluate models using overall and genre-wise accuracy
+- Visualize model performance and word importance
+- Identify and explain misclassified examples
+- Deploy an interactive app for real-time genre prediction
+- **(Bonus)**: Classify genre based on poster images using MobileNetV2
 
-### 1. Install Dependencies
+---
+
+## Directory Structure
+
 ```bash
-conda create -n 414-final-proj python=3.9
-conda activate 414-final-proj
+FINAL_PROJECT/
+├── bonus_problem/                # Bonus task: poster-based classifier
+│   ├── mobilenet_genre_classifier.h5
+│   ├── mobilenet_genre_finetuned.h5
+│   ├── mobilenet_v2_weights_tf_dim_ordering_tf_kernels.h5
+│   └── datasets/                # Poster image dataset (ignored by git)
+│
+├── datasets/                    # Text data and cleaned files (ignored by git)
+├── models/                      # Saved models and checkpoints
+├── scripts/                     # Utility and training scripts
+├── classify-by-img.ipynb       # Bonus: Poster classification notebook
+├── classify-by-text.ipynb      # Main text classification notebook
+├── DistilBERT_genre_training.py
+├── DistilBERT_genre_inference.py
+├── LR and LSTM.ipynb
+├── nb_rf.ipynb
+├── streamlit_app.py            # Interactive genre prediction app
+├── train_all_models.py         # End-to-end training pipeline
+├── requirements.txt
+├── README.md
+└── Project Discussion.html     # Slides or written presentation
+```
+
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/FantasiA10/MLDS_414_Text_Analytics_Movie_Genre.git
+cd MLDS_414_Text_Analytics_Movie_Genre
+```
+
+### 2. Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 2. Train the Model
-```bash
-python train_all_models.ppy
-```
+### 3. Run the Web App
 
-This trains four ML models and stores models and vectorizers/tokenizer.
-
-### 3. Start the Backend and Frontend
 ```bash
-python backend/app.py
 streamlit run streamlit_app.py
 ```
 
-## Example Use Case
+---
 
-Paste the movie description to the app UI:
+## Model Highlights
 
-> Four years after the catastrophic events that led to the destruction of Isla Nublar, the world is now a drastically changed place. Dinosaurs, once confined to the isolated ecosystems of the island, are no longer simply a distant memory or an attraction in a theme park—they are part of the global landscape. These ancient creatures roam free, inhabiting diverse environments and hunting alongside humans in an uneasy coexistence that constantly teeters on the edge of chaos. As dinosaurs find their place in a rapidly evolving ecosystem, the delicate balance between mankind and prehistoric predators becomes more fraught. The human race must confront its place on a planet that no longer belongs solely to them. With species both old and new adapting to the modern world, the consequences of mankind’s previous attempts to control, exploit, and manipulate the natural world come into sharp focus. This precarious harmony challenges every assumption about the survival of the human race as new threats arise, and old fears are reignited. Against this backdrop, the future of humanity will be determined, as it’s no longer about simply surviving alongside these magnificent creatures, but about understanding whether humans can coexist—or if they will be relegated to the role of prey. The age-old question lingers: who will remain the apex predator in a world where mankind now shares the Earth with some of history's most fearsome and intelligent creatures?
+* **Naive Bayes**: Fast baseline using bag-of-words features
+* **Logistic Regression**: Interpretable linear classifier
+* **Random Forest**: Captures non-linearities
+* **LSTM (TensorFlow)**: Sequence-aware deep learning
+* **DistilBERT**: Transformer-based classifier (optional)
+* **MobileNetV2 (Bonus)**: CNN-based model for poster classification
 
-Output: 
+Each model was evaluated using cross-validation and accuracy by genre. LSTM training curves and word clouds provide insight into model learning and interpretability.
 
-> Action
+---
 
-![frontend user interface](assets/frontend_ui.png)
+## Bonus: Poster-Based Genre Classification
 
+Under the `/bonus_problem/` directory, we trained a **MobileNetV2-based model** using poster images. This model was fine-tuned for our four genres and achieved promising accuracy, showcasing the power of visual cues in genre prediction.
 
-## Authors
+---
 
-[TODO]
+## Deliverables
+
+* [x] Code and models in this GitHub repository
+* [x] Slide deck (`Text Analytics Movie Genre Classification.pdf`)
+* [x] Final presentation video (see course submission)
+
+---
+
+---
+
+## Notes
+
+* Large data files (CSV/images) in `datasets/` and `bonus_problem/datasets/` are `.gitignore`d.
+* Contact the team if you need access to the full dataset for reproduction.
