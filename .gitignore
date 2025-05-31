@@ -3,5 +3,5 @@ results/*
 bert_genre_model/
 __pycache__/
 
-datasets/imdb
+datasets/
 
