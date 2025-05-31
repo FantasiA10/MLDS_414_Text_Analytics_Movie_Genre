@@ -1,7 +1,9 @@
 # Multimodal Movie Genre Classification
 
 **Northwestern University — Text Analytics**  
+
 **Final Project — Spring 2025**
+
 **Team Member: Jerry Zhu, Mason Ma, Yishi Wang, Yunkai Jin, Seung Jae Lee**
 
 ## Overview
