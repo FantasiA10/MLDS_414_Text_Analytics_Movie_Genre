@@ -2,3 +2,6 @@ notes.txt
 results/*
 bert_genre_model/
 __pycache__/
+
+datasets/
+
