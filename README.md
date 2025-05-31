@@ -23,13 +23,12 @@ conda activate 414-final-proj
 pip install -r requirements.txt
 ```
 
-### 2. Train the Model [TODO: add in all models]
+### 2. Train the Model
 ```bash
-python DistilBERT_genre_training.py
-
-# optional for inference
-python DistilBERT_genre_inference.py --text "A man must fight through zombies to protect his family."
+python train_all_models.ppy
 ```
+
+This trains four ML models and stores models and vectorizers/tokenizer.
 
 ### 3. Start the Backend and Frontend
 ```bash
@@ -49,18 +48,6 @@ Output:
 
 ![frontend user interface](assets/frontend_ui.png)
 
-## Evaluation
-
-```json
-{
-    "eval_loss": 0.6107685565948486,
-    "eval_accuracy": 0.745,
-    "eval_runtime": 0.548,
-    "eval_samples_per_second": 364.965,
-    "eval_steps_per_second": 9.124,
-    "epoch": 5.0
-}
-```
 
 ## Authors
 
